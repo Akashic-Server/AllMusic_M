@@ -1,17 +1,16 @@
 package Color_yr.AllMusic;
 
 import Color_yr.AllMusic.Hud.Hud;
-import Color_yr.AllMusic.Pack.GetPack;
-import Color_yr.AllMusic.Pack.IPacket;
 import Color_yr.AllMusic.player.APlayer;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class AllMusic implements ModInitializer {
     public static final Identifier ID = new Identifier("allmusic", "channel");
@@ -37,21 +36,13 @@ public class AllMusic implements ModInitializer {
         }
     });
 
-    public static <T extends IPacket> void registerPacket(Identifier id, Class<T> packetClass) {
-        ClientSidePacketRegistry.INSTANCE.register(id, (context, buffer) -> {
-            try {
-                IPacket packet = packetClass.newInstance();
-                packet.read(buffer);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
     public static void onServerQuit() {
-        stopPlaying();
-        Hud.Lyric = Hud.Info = Hud.List = "";
-        Hud.save = null;
+        try {
+            nowPlaying.close();
+            Hud.stop();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static URL Get(URL url) {
@@ -61,7 +52,8 @@ public class AllMusic implements ModInitializer {
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.setConnectTimeout(4 * 1000);
-                connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36 Edg/84.0.522.52");
+                connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
+                        "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36 Edg/84.0.522.52");
                 connection.setRequestProperty("Host", "music.163.com");
                 connection.connect();
                 if (connection.getResponseCode() == 302) {
@@ -99,7 +91,7 @@ public class AllMusic implements ModInitializer {
                 } else if (message.startsWith("[Img]")) {
                     Hud.SetImg(message.substring(5));
                 } else if (message.equalsIgnoreCase("[clear]")) {
-                    Hud.Lyric = Hud.Info = Hud.List = "";
+                    Hud.clear();
                 } else if (message.startsWith("{")) {
                     Hud.Set(message);
                 }
@@ -113,7 +105,7 @@ public class AllMusic implements ModInitializer {
     private static void stopPlaying() {
         try {
             nowPlaying.close();
-            Hud.stop();
+            Hud.clear();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -121,7 +113,17 @@ public class AllMusic implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        registerPacket(ID, GetPack.class);
+        ClientPlayNetworking.registerGlobalReceiver(ID, (client, handler, buffer, responseSender) -> {
+            try {
+                byte[] buff = new byte[buffer.readableBytes()];
+                buffer.readBytes(buff);
+                buff[0] = 0;
+                String data = new String(buff, StandardCharsets.UTF_8).substring(1);
+                onClicentPacket(data);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         thread.start();
     }
 }

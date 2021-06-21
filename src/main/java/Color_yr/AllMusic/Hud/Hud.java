@@ -3,17 +3,13 @@ package Color_yr.AllMusic.Hud;
 import com.google.gson.Gson;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.ByteBuffer;
@@ -23,13 +19,10 @@ public class Hud {
     public static String Info;
     public static String List;
     public static String Lyric;
-    private static String PicUrl = "";
     public static SaveOBJ save;
     private static ByteBuffer byteBuffer;
-    private static int textureID;
+    private static final int textureID;
     private static boolean haveImg;
-    private static int w;
-    private static int h;
 
     private static final MatrixStack stack = new MatrixStack();
 
@@ -37,9 +30,14 @@ public class Hud {
         textureID = GL11.glGenTextures();
     }
 
-    public static void stop() {
+    public static void clear() {
         haveImg = false;
         Info = List = Lyric = "";
+    }
+
+    public static void stop() {
+        clear();
+        save = null;
     }
 
     public static void Set(String data) {
@@ -49,21 +47,19 @@ public class Hud {
     }
 
     public static void SetImg(String picUrl) {
-        PicUrl = picUrl;
 
-        if (PicUrl != null) {
+        if (picUrl != null) {
             try {
-                URL url = new URL(picUrl);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                var url = new URL(picUrl);
+                var connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.setConnectTimeout(4 * 1000);
-                connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36 Edg/84.0.522.52");
+                connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
+                        "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36 Edg/84.0.522.52");
                 connection.setRequestProperty("Host", "music.163.com");
                 connection.connect();
-                InputStream inputStream = connection.getInputStream();
-                BufferedImage image = ImageIO.read(inputStream);
-                h = image.getHeight();
-                w = image.getWidth();
+                var inputStream = connection.getInputStream();
+                var image = ImageIO.read(inputStream);
                 int[] pixels = new int[image.getWidth() * image.getHeight()];
                 image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
                 byteBuffer = ByteBuffer.allocateDirect(image.getWidth() * image.getHeight() * 4);
@@ -84,7 +80,8 @@ public class Hud {
 
                 MinecraftClient.getInstance().execute(() -> {
                     GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureID);
-                    GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA8, image.getWidth(), image.getHeight(), 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, byteBuffer);
+                    GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA8, image.getWidth(), image.getHeight(),
+                            0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, byteBuffer);
 
                     GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
                     GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_NEAREST);
@@ -98,8 +95,8 @@ public class Hud {
     }
 
     public static void update() {
-        InGameHud hud = MinecraftClient.getInstance().inGameHud;
-        TextRenderer textRenderer = hud.getFontRenderer();
+        var hud = MinecraftClient.getInstance().inGameHud;
+        var textRenderer = hud.getFontRenderer();
         if (save == null)
             return;
         synchronized (lock) {
@@ -134,7 +131,8 @@ public class Hud {
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderSystem.setShaderTexture(0, textureID);
-                DrawableHelper.drawTexture(new MatrixStack(), save.getPic().getX(), save.getPic().getY(), 0, 0, 0, 70, 70, 70, 70);
+                DrawableHelper.drawTexture(new MatrixStack(), save.getPic().getX(), save.getPic().getY(),
+                        0, 0, 0, 70, 70, 70, 70);
             }
         }
     }
