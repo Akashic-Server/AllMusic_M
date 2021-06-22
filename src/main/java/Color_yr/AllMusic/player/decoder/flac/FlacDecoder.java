@@ -73,11 +73,6 @@ public final class FlacDecoder implements AutoCloseable, IDecoder {
 
     private FrameDecoder frameDec;
 
-    private HttpGet get;
-    private HttpClient client;
-    private InputStream content;
-    private long local;
-
     /*---- Constructors ----*/
 
     // Constructs a new FLAC decoder to read the given file.
@@ -170,7 +165,6 @@ public final class FlacDecoder implements AutoCloseable, IDecoder {
     // This decoder object becomes invalid for any method calls or field usages.
     public void close() throws IOException {
         if (input != null) {
-            get.abort();
             streamInfo = null;
             seekTable = null;
             frameDec = null;

@@ -4,25 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd1594ed-4b8b-4386-b4dc-7693e244bb03" name="默认变更列表" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/Hud/Hud.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/Hud/Hud.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/SoundAudioDevice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/SoundAudioDevice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/BuffPack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/BuffPack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/IDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/IDecoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/AbstractFlacLowLevelInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/AbstractFlacLowLevelInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/ByteArrayFlacInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/ByteArrayFlacInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/DataFormatException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/DataFormatException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/FlacDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/FlacDecoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/FlacLowLevelInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/FlacLowLevelInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/FrameDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/FrameDecoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/FrameInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/FrameInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/SeekBufferedInputStream.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/SeekTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/SeekTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/SeekableFileFlacInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/SeekableFileFlacInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/StreamInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/flac/StreamInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/mp3/Mp3Decoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Color_yr/AllMusic/player/decoder/mp3/Mp3Decoder.java" afterDir="false" />
-    </list>
+    <list default="true" id="dd1594ed-4b8b-4386-b4dc-7693e244bb03" name="默认变更列表" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
