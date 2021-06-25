@@ -47,7 +47,6 @@ public class Hud {
     }
 
     public static void SetImg(String picUrl) {
-
         if (picUrl != null) {
             try {
                 var url = new URL(picUrl);
@@ -77,7 +76,7 @@ public class Hud {
 
                 byteBuffer.flip();
                 inputStream.close();
-
+                Thread.sleep(500);
                 MinecraftClient.getInstance().execute(() -> {
                     GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureID);
                     GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA8, image.getWidth(), image.getHeight(),
